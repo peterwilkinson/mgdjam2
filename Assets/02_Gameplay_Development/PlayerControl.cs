@@ -8,9 +8,11 @@ public class PlayerControl : MonoBehaviour
     CharacterController characterController;
 
     [SerializeField]
-    float movementSpeed = 5f;
+    float movementSpeed = 4f;
     [SerializeField]
-    float rotationSpeed = 800;
+    float rotationSpeed = 300;
+    [SerializeField]
+    float rotationSensitivity = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
         print(move.magnitude);
         characterController.Move(move * Time.deltaTime * movementSpeed);
-        if (move.magnitude > .2)
+        if (move.magnitude > rotationSensitivity)
         {
             Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);

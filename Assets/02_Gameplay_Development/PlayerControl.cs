@@ -8,7 +8,9 @@ public class PlayerControl : MonoBehaviour
     CharacterController characterController;
 
     [SerializeField]
-    float speed = 5f;
+    float movementSpeed = 5f;
+    [SerializeField]
+    float rotationSpeed = 800;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +18,19 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        characterController.Move(move * Time.deltaTime * speed);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
+        print(move.magnitude);
+        characterController.Move(move * Time.deltaTime * movementSpeed);
+        if (move.magnitude > .2)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+        
     }
 }

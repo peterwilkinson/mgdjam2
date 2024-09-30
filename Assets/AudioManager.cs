@@ -1,5 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+
+
 
 public class AudioManager : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private Clock clock;
     public Dictionary<AudioSource, float> audioAmplitudes = new Dictionary<AudioSource, float>();
 
     void Awake()
@@ -37,6 +40,26 @@ public class AudioManager : MonoBehaviour
         }
         
         Debug.Log("AudioManager Awake");
+        clock = new Clock(120);
+        clock.Start();
     }
-   
+     void Update()
+    {
+        clock.UpdateClock();
+    }
+
+    public void SetBPM(float newBPM)
+    {
+        clock.SetBPM(newBPM);
+    }
+
+    public void StartClock()
+    {
+        clock.Start();
+    }
+
+    public void StopClock()
+    {
+        clock.Stop();
+    }
 }

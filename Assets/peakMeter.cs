@@ -57,7 +57,7 @@ public class PeakMeter : MonoBehaviour
             currentAmplitude = dbValue;
         }
 
-        Debug.Log("Amplitude: " + currentAmplitude);
+        // Debug.Log("Amplitude: " + currentAmplitude);
         
         //* No action for now *//
         

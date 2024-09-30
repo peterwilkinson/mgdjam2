@@ -16,9 +16,9 @@ public class AudioVisual3D : MonoBehaviour
     private Renderer objectRenderer;
     private Rigidbody rb;
     private Vector3 direction;
-    private float changeDirectionTime = 1f;
-    private float changeDirectionTimer = 0f;
-    private float moveSpeed = 0f;
+    // private float changeDirectionTime = 1f;
+    // private float changeDirectionTimer = 0f;
+    // private float moveSpeed = 0f;
     private Collider objectCollider;
     private AudioHighPassFilter highPassFilter;
 

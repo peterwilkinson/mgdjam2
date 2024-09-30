@@ -1,24 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//* commented out as I still get an error even though I don't load the script in the scene *//
 
-public class PlayerControl : MonoBehaviour
-{
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
 
-    CharacterController characterController;
+// public class PlayerControl : MonoBehaviour
+// {
 
-    [SerializeField]
-    float speed = 5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        characterController = GetComponent<CharacterController>();
-    }
+//     CharacterController characterController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        characterController.Move(move * Time.deltaTime * speed);
-    }
-}
+//     [SerializeField]
+//     float speed = 5f;
+//     // Start is called before the first frame update
+//     void Start()
+//     {
+//         characterController = GetComponent<CharacterController>();
+//     }
+
+//     // Update is called once per frame
+//     void Update()
+//     {
+//         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+//         characterController.Move(move * Time.deltaTime * speed);
+//     }
+// }

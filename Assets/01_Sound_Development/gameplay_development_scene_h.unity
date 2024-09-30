@@ -2184,6 +2184,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &1981139789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981139773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de836d1e8486b4f4fa92bb9777eb24d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 4
+  rotationSpeed: 300
+  rotationSensitivity: 0.1
 --- !u!1001 &8343545827888709404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2277,7 +2292,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5704987930675361227, guid: 1d2b3cf5bcda2184aa680a87b577a057, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2293,6 +2309,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1981139782}
+    - targetCorrespondingSourceObject: {fileID: 1814253552333126713, guid: 1d2b3cf5bcda2184aa680a87b577a057,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1981139789}
   m_SourcePrefab: {fileID: 100100000, guid: 1d2b3cf5bcda2184aa680a87b577a057, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

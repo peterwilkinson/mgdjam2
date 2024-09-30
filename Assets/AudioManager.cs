@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
-
 public class AudioManager : MonoBehaviour
 {
     // Singleton instance
@@ -25,7 +23,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private Clock clock;
-    public Dictionary<string, AudioSource> loops = new Dictionary<string, AudioSource>();
+    public Dictionary<string, LoopInfo> loops = new Dictionary<string, LoopInfo>();
     public Dictionary<AudioSource, float> audioAmplitudes = new Dictionary<AudioSource, float>();
 
     void Awake()
@@ -46,24 +44,65 @@ public class AudioManager : MonoBehaviour
         clock.OnTick += HandleTick; 
         clock.Start();
     }
-     private void HandleTick(int beat)
+
+    private void HandleTick(int beat)
     {
-        if (beat == 0)
-        {
-            RestartAllLoops();
-        }
-    }
-     private void RestartAllLoops()
-    {
+       bool allPickedUp = true;
         foreach (var loop in loops.Values)
         {
-            loop.Stop();
-            loop.Play();
+            if (!loop.isPickedUp)
+            {
+                allPickedUp = false;
+                break;
+            }
+        }
+
+        if (allPickedUp)
+        {
+            if (beat == 0)
+            {
+                foreach (var loop in loops.Values)
+                {
+                    loop.audioSource.Stop();
+                    loop.audioSource.Play();
+                }
+            }
+        }
+        else
+        {
+            foreach (var loop in loops.Values)
+            {
+                if (beat % 2 == 0 && !loop.isPickedUp)
+                {
+                    loop.audioSource.Stop();
+                    loop.audioSource.Play();
+                }
+                
+                if (beat % 4 == 0 && loop.isPickedUp)
+                {
+                    loop.audioSource.Stop();
+                    loop.audioSource.Play();
+                }
+            }
         }
     }
-     void Update()
+
+    
+
+    public void AddLoop(string key, AudioSource audioSource, bool isPickedUp)
     {
-        clock.UpdateClock();
+        if (!loops.ContainsKey(key))
+        {
+            loops.Add(key, new LoopInfo(audioSource, isPickedUp));
+        }
+    }
+
+    public void SetPickedUp(string key, bool isPickedUp)
+    {
+        if (loops.ContainsKey(key))
+        {
+            loops[key].isPickedUp = isPickedUp;
+        }
     }
 
     public void SetBPM(float newBPM)
@@ -80,12 +119,25 @@ public class AudioManager : MonoBehaviour
     {
         clock.Stop();
     }
-    
-      void OnDestroy()
+
+    void OnDestroy()
     {
         if (clock != null)
         {
-            clock.OnTick -= HandleTick; // Unsubscribe from the OnTick event
+            clock.OnTick -= HandleTick;
         }
+    }
+}
+
+// Helper class to store AudioSource and its picked-up state
+public class LoopInfo
+{
+    public AudioSource audioSource;
+    public bool isPickedUp;
+
+    public LoopInfo(AudioSource audioSource, bool isPickedUp)
+    {
+        this.audioSource = audioSource;
+        this.isPickedUp = isPickedUp;
     }
 }

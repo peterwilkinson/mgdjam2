@@ -21,6 +21,7 @@ public class AudioVisual3D : MonoBehaviour
     // private float moveSpeed = 0f;
     private Collider objectCollider;
     private AudioHighPassFilter highPassFilter;
+    private bool isPickedUp = false; 
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class AudioVisual3D : MonoBehaviour
 
         if (!AudioManager.Instance.loops.ContainsKey(gameObject.name))
         {
-            AudioManager.Instance.loops.Add(gameObject.name, audioSource);
+            AudioManager.Instance.AddLoop(gameObject.name, audioSource, isPickedUp);
         }
 
         if (startTime == 0)

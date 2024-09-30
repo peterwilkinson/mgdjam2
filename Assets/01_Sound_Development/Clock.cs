@@ -67,7 +67,7 @@ public class Clock : MonoBehaviour
         // Debug.Log($"Tick: {currentBeat}");
         OnTick?.Invoke(currentBeat); // Trigger the event and pass the current beat
         currentBeat++;
-        currentBeat %= 4;
+        currentBeat %= 16;
     }
 
     public void SetBPM(float newBPM)

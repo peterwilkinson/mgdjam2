@@ -22,7 +22,7 @@ public class CollisionAudioHandler : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision)
-{
+    {
         // Debug.Log($"Collision with: {collision.gameObject.name}");
 
         if (collision.gameObject.CompareTag(mainCharacterTag))
@@ -48,47 +48,9 @@ public class CollisionAudioHandler : MonoBehaviour
                 audioEchoFilter.wetMix = 0.0f;
                 audioEchoFilter.enabled = false;
             }
-            
-            Renderer playerRenderer = collision.gameObject.GetComponent<Renderer>();
-        if (playerRenderer != null)
-        {
-            Color playerColor = playerRenderer.material.color;
 
-            Renderer collidingRenderer = GetComponent<Renderer>();
-            if (collidingRenderer != null)
-            {
-                Color collidingBaseColor = collidingRenderer.material.color;
-                Color resultingColor = playerColor + (collidingBaseColor * 0.5f);
-
-                playerRenderer.material.color = resultingColor;
-                GameObject lightObject = GameObject.FindWithTag("Light");
-                if (lightObject != null)
-        {
-            Light lightComponent = lightObject.GetComponent<Light>();
-            if (lightComponent != null)
-            {
-                lightComponent.color = resultingColor + (playerColor/2.0f);
-            }
+            // Set isPickedUp to true in AudioManager
+            AudioManager.Instance.SetPickedUp(gameObject.name, true);
         }
-            }
-        }
-        Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-        if (playerRigidbody != null)
-        {
-            Vector3 velocity = playerRigidbody.velocity;
-            velocity.y = 0; // Set the y-component of the velocity to zero
-            playerRigidbody.velocity = velocity;
-
-            Vector3 position = playerRigidbody.position;
-            position.y = collision.transform.position.y; // Maintain the y-position
-            playerRigidbody.position = position;
-        }
-                    
-        
-        }
-        else
-        {
-            // Debug.Log("Not the player....");
-        }
-        }
+    }
 }

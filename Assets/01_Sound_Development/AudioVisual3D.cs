@@ -33,12 +33,17 @@ public class AudioVisual3D : MonoBehaviour
 
         clipSampleData = new float[1024];
 
+        if (!AudioManager.Instance.loops.ContainsKey(gameObject.name))
+        {
+            AudioManager.Instance.loops.Add(gameObject.name, audioSource);
+        }
+
         if (startTime == 0)
         {
             startTime = AudioSettings.dspTime + 1.0;
         }
 
-        audioSource.PlayScheduled(startTime);
+        // audioSource.PlayScheduled(startTime);
     }
 
     void Update()

@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private Clock clock;
+    public Dictionary<string, AudioSource> loops = new Dictionary<string, AudioSource>();
     public Dictionary<AudioSource, float> audioAmplitudes = new Dictionary<AudioSource, float>();
 
     void Awake()
@@ -40,8 +41,25 @@ public class AudioManager : MonoBehaviour
         }
         
         Debug.Log("AudioManager Awake");
-        clock = new Clock(120);
+        clock = Clock.Instance;
+        clock.Initialize(120); // Initialize the clock with BPM
+        clock.OnTick += HandleTick; 
         clock.Start();
+    }
+     private void HandleTick(int beat)
+    {
+        if (beat == 0)
+        {
+            RestartAllLoops();
+        }
+    }
+     private void RestartAllLoops()
+    {
+        foreach (var loop in loops.Values)
+        {
+            loop.Stop();
+            loop.Play();
+        }
     }
      void Update()
     {
@@ -61,5 +79,13 @@ public class AudioManager : MonoBehaviour
     public void StopClock()
     {
         clock.Stop();
+    }
+    
+      void OnDestroy()
+    {
+        if (clock != null)
+        {
+            clock.OnTick -= HandleTick; // Unsubscribe from the OnTick event
+        }
     }
 }

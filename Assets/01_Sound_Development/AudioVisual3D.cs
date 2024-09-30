@@ -62,7 +62,9 @@ public class AudioVisual3D : MonoBehaviour
 
         float scale = 0.1f + currentAmplitude * sensitivity;
 
-        if (highPassFilter == null || !highPassFilter.enabled)
+        bool isPickedUp = AudioManager.Instance.loops.ContainsKey(gameObject.name) && AudioManager.Instance.loops[gameObject.name].isPickedUp;
+
+        if (isPickedUp)
         {
             scale = 0.1f;
             transform.localScale = new Vector3(scale, scale, scale);

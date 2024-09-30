@@ -47,13 +47,17 @@ public class AudioManager : MonoBehaviour
 
     private void HandleTick(int beat)
     {
-       bool allPickedUp = true;
+        bool allPickedUp = true;
         foreach (var loop in loops.Values)
         {
             if (!loop.isPickedUp)
             {
                 allPickedUp = false;
-                break;
+                loop.beatsSinceDropped++;
+            }
+            else
+            {
+                loop.beatsSinceDropped++;
             }
         }
 
@@ -65,6 +69,7 @@ public class AudioManager : MonoBehaviour
                 {
                     loop.audioSource.Stop();
                     loop.audioSource.Play();
+                    loop.beatsSinceDropped = 0;
                 }
             }
         }
@@ -82,6 +87,7 @@ public class AudioManager : MonoBehaviour
                 {
                     loop.audioSource.Stop();
                     loop.audioSource.Play();
+                    loop.beatsSinceDropped = 0;
                 }
             }
         }
@@ -102,6 +108,10 @@ public class AudioManager : MonoBehaviour
         if (loops.ContainsKey(key))
         {
             loops[key].isPickedUp = isPickedUp;
+            if (!isPickedUp)
+            {
+                loops[key].beatsSinceDropped = 0;
+            }
         }
     }
 
@@ -134,10 +144,12 @@ public class LoopInfo
 {
     public AudioSource audioSource;
     public bool isPickedUp;
+    public int beatsSinceDropped;
 
     public LoopInfo(AudioSource audioSource, bool isPickedUp)
     {
         this.audioSource = audioSource;
         this.isPickedUp = isPickedUp;
+        this.beatsSinceDropped = 0;
     }
 }

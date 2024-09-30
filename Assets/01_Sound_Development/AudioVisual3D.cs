@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-//** quick prototype code cm -- parts to be handled by an audiomanager singleton in future... **//
-
 public class AudioVisual3D : MonoBehaviour
 {
     public Color baseColor = Color.white;
@@ -33,18 +31,14 @@ public class AudioVisual3D : MonoBehaviour
         highPassFilter = GetComponent<AudioHighPassFilter>();
 
         clipSampleData = new float[1024];
-
+        
+        
+        //** play start will be handled by the audiomanager **//
         if (!AudioManager.Instance.loops.ContainsKey(gameObject.name))
         {
             AudioManager.Instance.AddLoop(gameObject.name, audioSource, isPickedUp);
         }
 
-        if (startTime == 0)
-        {
-            startTime = AudioSettings.dspTime + 1.0;
-        }
-
-        // audioSource.PlayScheduled(startTime);
     }
 
     void Update()
@@ -63,19 +57,28 @@ public class AudioVisual3D : MonoBehaviour
         float scale = 0.1f + currentAmplitude * sensitivity;
 
         bool isPickedUp = AudioManager.Instance.loops.ContainsKey(gameObject.name) && AudioManager.Instance.loops[gameObject.name].isPickedUp;
+        Debug.Log("isPickedUp: " + isPickedUp);
 
         if (isPickedUp)
         {
             scale = 0.1f;
             transform.localScale = new Vector3(scale, scale, scale);
+            
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                float speed = 5f;
+                Vector3 direction = (player.transform.position - transform.position).normalized;
+                transform.position += direction * speed * Time.deltaTime;
+            }
         }
         else if (audioSource.isPlaying)
         {
-            transform.localScale = new Vector3(scale, Mathf.Exp(scale) * 4, scale);
+            transform.localScale = new Vector3(scale * 2, Mathf.Exp(scale) * 2, scale * 2);
 
             if (objectCollider is BoxCollider boxCollider)
             {
-                boxCollider.size = new Vector3(scale, scale, scale);
+                boxCollider.size = new Vector3(scale * 2, Mathf.Exp(scale) * 2, scale * 2);
             }
             else if (objectCollider is SphereCollider sphereCollider)
             {

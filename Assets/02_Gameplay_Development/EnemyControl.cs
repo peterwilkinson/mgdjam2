@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyControl : MonoBehaviour
+
+namespace Gameplay
 {
-    GameObject player;
-    // Start is called before the first frame update
-    void Start()
+
+    public class EnemyControl : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player;
+        // Start is called before the first frame update
+        void Start()
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            GetComponent<NavMeshAgent>().destination = player.transform.position;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        GetComponent<NavMeshAgent>().destination = player.transform.position;
-    }
 }

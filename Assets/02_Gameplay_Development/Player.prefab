@@ -118,8 +118,9 @@ GameObject:
   - component: {fileID: 5099718506238523301}
   - component: {fileID: 594100733791803518}
   - component: {fileID: 6228349782418323031}
-  - component: {fileID: 5704987930675361227}
   - component: {fileID: 8414818962428441913}
+  - component: {fileID: -1710423012161567710}
+  - component: {fileID: 3839055666644996834}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -240,21 +241,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5704987930675361227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1814253552333126713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f77122c083593a54fa9f0086cc4b4832, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 4
-  rotationSpeed: 600
-  rotationSensitivity: 0.1
 --- !u!208 &8414818962428441913
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -271,3 +257,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!81 &-1710423012161567710
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814253552333126713}
+  m_Enabled: 1
+--- !u!114 &3839055666644996834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814253552333126713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5e53a3669cb4a748049ab92a807975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 4
+  rotationSpeed: 300
+  rotationSensitivity: 0.1

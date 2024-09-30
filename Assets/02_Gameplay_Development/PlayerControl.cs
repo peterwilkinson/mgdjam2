@@ -2,37 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+
+namespace Gameplay
 {
 
-    CharacterController characterController;
-
-    [SerializeField]
-    float movementSpeed = 4f;
-    [SerializeField]
-    float rotationSpeed = 300;
-    [SerializeField]
-    float rotationSensitivity = 0.1f;
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerControl : MonoBehaviour
     {
-        characterController = GetComponent<CharacterController>();
-    }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        CharacterController characterController;
 
-        Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
-        print(move.magnitude);
-        characterController.Move(move * Time.deltaTime * movementSpeed);
-        if (move.magnitude > rotationSensitivity)
+        [SerializeField]
+        float movementSpeed = 4f;
+        [SerializeField]
+        float rotationSpeed = 300;
+        [SerializeField]
+        float rotationSensitivity = 0.1f;
+        // Start is called before the first frame update
+        void Start()
         {
-            Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            characterController = GetComponent<CharacterController>();
         }
-        
+
+        // Update is called once per frame
+        void FixedUpdate()
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+
+            Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
+            print(move.magnitude);
+            characterController.Move(move * Time.deltaTime * movementSpeed);
+            if (move.magnitude > rotationSensitivity)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            }
+
+        }
     }
+
 }

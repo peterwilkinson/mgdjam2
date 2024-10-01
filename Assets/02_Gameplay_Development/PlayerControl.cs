@@ -30,7 +30,7 @@ namespace Gameplay
             float verticalInput = Input.GetAxis("Vertical");
 
             Vector3 move = new Vector3(horizontalInput, 0, verticalInput);
-            print(move.magnitude);
+            // print(move.magnitude);
             characterController.Move(move * Time.deltaTime * movementSpeed);
             if (move.magnitude > rotationSensitivity)
             {
